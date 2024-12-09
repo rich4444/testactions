@@ -1,0 +1,9 @@
+{
+  "dependencies":{
+    "gulp":"^5.0.0",
+    "gulp-change":"^1.0.2",
+    "gulp-cli":"^3.0.0",
+    "gulp-concat":"^2.6.1",
+    "gulp-strip-comments":"^2.6.0"
+  }
+}
