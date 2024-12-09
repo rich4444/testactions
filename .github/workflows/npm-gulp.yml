@@ -29,7 +29,7 @@ jobs:
 
       # Step 4: Run Gulp tasks
       - name: Run Gulp
-        run: npx gulp # Replace "build" with your specific gulp task
+        run: npx gulp build # Replace "build" with your specific gulp task
 
       # Step 5 (Optional): Upload built files as artifacts
       - name: Upload built files

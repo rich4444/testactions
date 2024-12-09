@@ -34,3 +34,4 @@ function compileJs() {
 const watch = () => gulp.watch(paths.js.src, series(compileJs));
 
 exports.default = watch;
+exports.build = compileJs;
