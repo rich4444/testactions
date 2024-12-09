@@ -1,28 +1,39 @@
-name: NodeJS with Gulp
+name: Gulp Build
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main  # Runs when you push to the main branch
   pull_request:
-    branches: [ "main" ]
+    branches:
+      - main  # Runs on pull requests to the main branch
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
-    strategy:
-      matrix:
-        node-version: [18.x, 20.x, 22.x]
-
     steps:
-    - uses: actions/checkout@v4
+      # Step 1: Check out the code from the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Replace with your required Node.js version
 
-    - name: Build
-      run: |
-        npm install
-        gulp
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Step 4: Run Gulp tasks
+      - name: Run Gulp
+        run: npx gulp # Replace "build" with your specific gulp task
+
+      # Step 5 (Optional): Upload built files as artifacts
+      - name: Upload built files
+        uses: actions/upload-artifact@v3
+        with:
+          name: compiled-assets
+          path: dist/ # Replace "dist/" with the path to your compiled files
