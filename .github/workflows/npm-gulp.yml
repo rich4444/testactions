@@ -3,37 +3,34 @@ name: Gulp Build
 on:
   push:
     branches:
-      - main  # Runs when you push to the main branch
+      - main
   pull_request:
     branches:
-      - main  # Runs on pull requests to the main branch
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Check out the code from the repository
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # Replace with your required Node.js version
+          node-version: '18'
 
-      # Step 3: Install dependencies
       - name: Install dependencies
         run: npm install
 
-      # Step 4: Run Gulp tasks
       - name: Run Gulp
-        run: npx gulp build # Replace "build" with your specific gulp task
+        run: npx gulp build
 
-      # Step 5 (Optional): Upload built files as artifacts
-      - name: Upload built files
-        uses: actions/upload-artifact@v3
-        with:
-          name: compiled-assets
-          path: dist/ # Replace "dist/" with the path to your compiled files
+      - name: Commit compiled files
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add dist/
+          git commit -m "Add compiled files [skip ci]" || echo "No changes to commit"
+          git push
